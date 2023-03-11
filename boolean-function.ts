@@ -49,15 +49,11 @@ export class BooleanFunction {
 
   getCanonicalNormalFormBinary(disjunctive: boolean) {
     return this.table.result
-      .map(
-        (result, index) =>
-          disjunctive === !!result &&
-          this.params.reduce((acc, param, exp) => acc + (this.table[param][index] && 2 ** exp), 0)
-      )
+      .map((result, index) => disjunctive === !!result && index)
       .filter((number) => number !== false)
-      .sort()
       .join(',');
   }
+
 
   get cdnf() {
     return this.getCanonicalNormalForm(true);
